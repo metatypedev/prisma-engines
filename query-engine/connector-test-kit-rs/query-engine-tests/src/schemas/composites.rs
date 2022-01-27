@@ -79,6 +79,7 @@ pub fn to_one_composites() -> String {
 
         type C {
             c_field String @default("c_field default")
+            c_opt   String?
             b B?
         }
         "#
