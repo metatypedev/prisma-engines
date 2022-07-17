@@ -452,6 +452,11 @@
 <span id="447">447</span>
 <span id="448">448</span>
 <span id="449">449</span>
+<span id="450">450</span>
+<span id="451">451</span>
+<span id="452">452</span>
+<span id="453">453</span>
+<span id="454">454</span>
 </pre><pre class="rust"><code><span class="kw">mod</span> <span class="ident">validations</span>;
 
 <span class="kw">use</span> <span class="ident">connection_string::JdbcString</span>;
@@ -553,6 +558,7 @@
     <span class="ident">ConnectorCapability::ImplicitManyToManyRelation</span>,
     <span class="ident">ConnectorCapability::DecimalType</span>,
     <span class="ident">ConnectorCapability::ClusteringSetting</span>,
+    <span class="ident">ConnectorCapability::OrderByNullsFirstLast</span>,
 ];
 
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">MsSqlDatamodelConnector</span>;
@@ -600,6 +606,10 @@
 ];
 
 <span class="kw">impl</span> <span class="ident">Connector</span> <span class="kw">for</span> <span class="ident">MsSqlDatamodelConnector</span> {
+    <span class="kw">fn</span> <span class="ident">provider_name</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span><span class="lifetime">&#39;static</span> <span class="ident">str</span> {
+        <span class="string">&quot;sqlserver&quot;</span>
+    }
+
     <span class="kw">fn</span> <span class="ident">name</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span><span class="ident">str</span> {
         <span class="string">&quot;SQL Server&quot;</span>
     }
@@ -902,5 +912,5 @@
     }
 }
 </code></pre></div>
-</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="sql_datamodel_connector" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.61.0 (fe5b13d68 2022-05-18)" ></div>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="sql_datamodel_connector" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.62.0 (a8314ef7d 2022-06-27)" ></div>
 </body></html>

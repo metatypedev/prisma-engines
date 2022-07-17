@@ -733,6 +733,7 @@
 <span id="728">728</span>
 <span id="729">729</span>
 <span id="730">730</span>
+<span id="731">731</span>
 </pre><pre class="rust"><code><span class="kw">mod</span> <span class="ident">c_style_scalar_lists</span>;
 <span class="kw">mod</span> <span class="ident">tokenize</span>;
 
@@ -844,7 +845,7 @@
     <span class="prelude-val">None</span>
 }
 
-<span class="kw">fn</span> <span class="ident">parse_datetime_default</span>(<span class="ident">parser</span>: <span class="kw-2">&amp;mut</span> <span class="ident">Parser</span>) -&gt; <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">DefaultValue</span><span class="op">&gt;</span> {
+<span class="kw">fn</span> <span class="ident">parse_datetime_default</span>(<span class="ident">parser</span>: <span class="kw-2">&amp;mut</span> <span class="ident">Parser</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>) -&gt; <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">DefaultValue</span><span class="op">&gt;</span> {
     <span class="kw">let</span> <span class="ident">value</span> <span class="op">=</span> <span class="kw">match</span> <span class="ident">parser</span>.<span class="ident">peek_token</span>()<span class="question-mark">?</span> {
         <span class="ident">Token::Identifier</span> =&gt; {
             <span class="kw">let</span> <span class="ident">func_name</span> <span class="op">=</span> <span class="ident">parser</span>.<span class="ident">expect</span>(<span class="ident">Token::Identifier</span>)<span class="question-mark">?</span>;
@@ -868,7 +869,7 @@
     <span class="ident">value</span>
 }
 
-<span class="kw">fn</span> <span class="ident">parse_enum_default</span>(<span class="ident">parser</span>: <span class="kw-2">&amp;mut</span> <span class="ident">Parser</span>) -&gt; <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">DefaultValue</span><span class="op">&gt;</span> {
+<span class="kw">fn</span> <span class="ident">parse_enum_default</span>(<span class="ident">parser</span>: <span class="kw-2">&amp;mut</span> <span class="ident">Parser</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>) -&gt; <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">DefaultValue</span><span class="op">&gt;</span> {
     <span class="kw">match</span> <span class="ident">parser</span>.<span class="ident">peek_token</span>()<span class="question-mark">?</span> {
         <span class="ident">Token::Identifier</span> =&gt; {
             <span class="kw">let</span> <span class="ident">s</span> <span class="op">=</span> <span class="ident">parser</span>.<span class="ident">expect</span>(<span class="ident">Token::Identifier</span>)<span class="question-mark">?</span>;
@@ -910,6 +911,7 @@
         }
         <span class="ident">Token::CStyleStringLiteral</span> =&gt; {
             <span class="comment">// Reference for CockroachDB: https://www.cockroachlabs.com/docs/stable/sql-constants.html#string-literals-with-character-escapes</span>
+            <span class="comment">// Reference for Postgres: https://www.postgresql.org/docs/current/sql-syntax-lexical.html#SQL-SYNTAX-CONSTANTS</span>
             <span class="comment">// octal and hexadecimal escape sequences seem not to be returned by crdb in defaults,</span>
             <span class="comment">// so we do not try parsing them.</span>
             <span class="kw">let</span> <span class="ident">s</span> <span class="op">=</span> <span class="ident">parser</span>.<span class="ident">expect</span>(<span class="ident">Token::CStyleStringLiteral</span>)<span class="question-mark">?</span>;
@@ -1146,7 +1148,7 @@
     <span class="prelude-val">Some</span>(<span class="ident">value</span>)
 }
 
-<span class="kw">fn</span> <span class="ident">parse_bool_default</span>(<span class="ident">parser</span>: <span class="kw-2">&amp;mut</span> <span class="ident">Parser</span>) -&gt; <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">DefaultValue</span><span class="op">&gt;</span> {
+<span class="kw">fn</span> <span class="ident">parse_bool_default</span>(<span class="ident">parser</span>: <span class="kw-2">&amp;mut</span> <span class="ident">Parser</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>) -&gt; <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">DefaultValue</span><span class="op">&gt;</span> {
     <span class="kw">let</span> <span class="ident">s</span> <span class="op">=</span> <span class="ident">parser</span>.<span class="ident">expect</span>(<span class="ident">Token::Identifier</span>)<span class="question-mark">?</span>;
 
     <span class="kw">let</span> <span class="ident">bool_value</span> <span class="op">=</span> <span class="kw">if</span> <span class="ident">s</span>.<span class="ident">eq_ignore_ascii_case</span>(<span class="string">&quot;t&quot;</span>) <span class="op">|</span><span class="op">|</span> <span class="ident">s</span>.<span class="ident">eq_ignore_ascii_case</span>(<span class="string">&quot;true&quot;</span>) {
@@ -1245,7 +1247,7 @@
 
 <span class="doccomment">/// Some(()) on valid cast or absence of cast. None if we can&#39;t make sense of the input.</span>
 <span class="attribute">#[<span class="ident">must_use</span>]</span>
-<span class="kw">fn</span> <span class="ident">eat_cast</span>(<span class="ident">parser</span>: <span class="kw-2">&amp;mut</span> <span class="ident">Parser</span>) -&gt; <span class="prelude-ty">Option</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
+<span class="kw">fn</span> <span class="ident">eat_cast</span>(<span class="ident">parser</span>: <span class="kw-2">&amp;mut</span> <span class="ident">Parser</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>) -&gt; <span class="prelude-ty">Option</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
     <span class="kw">match</span> <span class="ident">parser</span>.<span class="ident">peek_token</span>() {
         <span class="prelude-val">Some</span>(<span class="ident">Token::CastOperator</span>) =&gt; {
             <span class="ident">parser</span>.<span class="ident">expect</span>(<span class="ident">Token::CastOperator</span>)<span class="question-mark">?</span>;
@@ -1464,5 +1466,5 @@
     }
 }
 </code></pre></div>
-</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="sql_schema_describer" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.61.0 (fe5b13d68 2022-05-18)" ></div>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="sql_schema_describer" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.62.0 (a8314ef7d 2022-06-27)" ></div>
 </body></html>
