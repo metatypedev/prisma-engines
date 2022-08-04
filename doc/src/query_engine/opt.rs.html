@@ -225,9 +225,6 @@
 <span id="220">220</span>
 <span id="221">221</span>
 <span id="222">222</span>
-<span id="223">223</span>
-<span id="224">224</span>
-<span id="225">225</span>
 </pre><pre class="rust"><code><span class="kw">use</span> <span class="kw">crate</span>::{<span class="ident">error::PrismaError</span>, <span class="ident">PrismaResult</span>};
 <span class="kw">use</span> <span class="ident">datamodel::dml::Datamodel</span>;
 <span class="kw">use</span> <span class="ident">datamodel::ValidatedConfiguration</span>;
@@ -246,9 +243,6 @@
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">ExecuteRequestInput</span> {
     <span class="doccomment">/// GraphQL query to execute</span>
     <span class="kw">pub</span> <span class="ident">query</span>: <span class="ident">String</span>,
-    <span class="doccomment">/// Run in the legacy GraphQL mode</span>
-    <span class="attribute">#[<span class="ident">structopt</span>(<span class="ident">long</span>)]</span>
-    <span class="kw">pub</span> <span class="ident">legacy</span>: <span class="ident">bool</span>,
 }
 
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Clone</span>, <span class="ident">StructOpt</span>)]</span>
@@ -306,10 +300,6 @@
     <span class="attribute">#[<span class="ident">structopt</span>(<span class="ident">long</span>, <span class="ident">env</span> <span class="op">=</span> <span class="string">&quot;OVERWRITE_DATASOURCES&quot;</span>, <span class="ident">parse</span>(<span class="ident">try_from_str</span> <span class="op">=</span> <span class="ident">parse_base64_string</span>))]</span>
     <span class="kw">pub</span> <span class="ident">overwrite_datasources</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
 
-    <span class="doccomment">/// Switches query schema generation to Prisma 1 compatible mode.</span>
-    <span class="attribute">#[<span class="ident">structopt</span>(<span class="ident">long</span>, <span class="ident">short</span>)]</span>
-    <span class="kw">pub</span> <span class="ident">legacy</span>: <span class="ident">bool</span>,
-
     <span class="doccomment">/// Enables raw SQL queries with executeRaw/queryRaw mutation</span>
     <span class="attribute">#[<span class="ident">structopt</span>(<span class="ident">long</span>, <span class="ident">short</span> <span class="op">=</span> <span class="string">&quot;r&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="ident">enable_raw_queries</span>: <span class="ident">bool</span>,
@@ -343,6 +333,10 @@
     <span class="doccomment">/// and not via our custom stdout tracer</span>
     <span class="attribute">#[<span class="ident">structopt</span>(<span class="ident">long</span>, <span class="ident">default_value</span>)]</span>
     <span class="kw">pub</span> <span class="ident">open_telemetry_endpoint</span>: <span class="ident">String</span>,
+
+    <span class="doccomment">/// JSON object for tracing headers such as the traceparent</span>
+    <span class="attribute">#[<span class="ident">structopt</span>(<span class="ident">long</span>, <span class="ident">default_value</span> <span class="op">=</span> <span class="string">&quot;{}&quot;</span>)]</span>
+    <span class="kw">pub</span> <span class="ident">tracing_headers</span>: <span class="ident">String</span>,
 
     <span class="attribute">#[<span class="ident">structopt</span>(<span class="ident">subcommand</span>)]</span>
     <span class="kw">pub</span> <span class="ident">subcommand</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Subcommand</span><span class="op">&gt;</span>,
@@ -454,5 +448,5 @@
     <span class="ident">datamodel</span>
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="query_engine" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.62.0 (a8314ef7d 2022-06-27)" ></div>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="query_engine" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.62.1 (e092d0b6b 2022-07-16)" ></div>
 </body></html>

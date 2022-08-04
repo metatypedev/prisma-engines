@@ -112,11 +112,11 @@
     <span class="kw">let</span> <span class="ident">start</span> <span class="op">=</span> <span class="ident">Instant::now</span>();
     <span class="kw">let</span> <span class="ident">res</span> <span class="op">=</span> <span class="ident">f</span>().<span class="kw">await</span>;
 
-    <span class="macro">histogram!</span>(<span class="string">&quot;query_total_elapsed_time_ms&quot;</span>, <span class="ident">start</span>.<span class="ident">elapsed</span>());
-    <span class="macro">increment_counter!</span>(<span class="string">&quot;query_total_queries&quot;</span>);
+    <span class="macro">histogram!</span>(<span class="string">&quot;prisma_datasource_queries_duration_histogram_ms&quot;</span>, <span class="ident">start</span>.<span class="ident">elapsed</span>());
+    <span class="macro">increment_counter!</span>(<span class="string">&quot;prisma_datasource_queries_total&quot;</span>);
 
     <span class="ident">res</span>
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="mongodb_query_connector" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.62.0 (a8314ef7d 2022-06-27)" ></div>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="mongodb_query_connector" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.62.1 (e092d0b6b 2022-07-16)" ></div>
 </body></html>
