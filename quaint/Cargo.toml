@@ -122,7 +122,7 @@ optional = true
 branch = "vendored-openssl"
 
 [dependencies.rusqlite]
-version = "0.31"
+version = "0.32"
 features = ["chrono", "column_decltype"]
 optional = true
 
@@ -155,7 +155,8 @@ features = [
   "with-bit-vec-0_6",
 ]
 git = "https://github.com/prisma/rust-postgres"
-branch = "pgbouncer-mode"
+# branch = "pgbouncer-mode"
+rev = "54a490bc"
 optional = true
 
 [dependencies.postgres-types]
@@ -166,12 +167,14 @@ features = [
   "with-bit-vec-0_6",
 ]
 git = "https://github.com/prisma/rust-postgres"
-branch = "pgbouncer-mode"
+# branch = "pgbouncer-mode"
+rev = "54a490bc"
 optional = true
 
 [dependencies.postgres-native-tls]
 git = "https://github.com/prisma/rust-postgres"
-branch = "pgbouncer-mode"
+# branch = "pgbouncer-mode"
+rev = "54a490bc"
 optional = true
 
 [dependencies.tokio]
